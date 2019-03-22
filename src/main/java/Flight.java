@@ -63,7 +63,7 @@ public class Flight {
     }
 
     public void book(Passenger passenger){
-        if(this.availableSeats() > 0 && this.availableWeight() >= (passenger.getBags() * 30)){
+        if(this.availableSeats() > 0 && this.availableWeight() >= passenger.getLuggageWeight()){
             this.passengers.add(passenger);
         }
     }

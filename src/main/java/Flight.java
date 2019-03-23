@@ -1,4 +1,7 @@
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 
 public class Flight {
 
@@ -6,8 +9,11 @@ public class Flight {
     private Plane plane;
     private AirportCode departingFrom;
     private AirportCode destination;
+//    private Date date;
+//    private SimpleDateFormat time;
     private String departureTime;
     private ArrayList<Passenger> passengers;
+    private ArrayList<Integer> seats;
 
     public Flight(String flightNo, Plane plane, AirportCode departingFrom, AirportCode destination, String departureTime){
         this.flightNo = flightNo;
@@ -15,7 +21,12 @@ public class Flight {
         this.departingFrom = departingFrom;
         this.destination = destination;
         this.departureTime = departureTime;
+//        this.date = new Date(departureTime);
+//        this.time = new SimpleDateFormat("HH:mm");
+//        this.departureTime = this.time.format(this.date);
         this.passengers = new ArrayList<Passenger>();
+        this.seats = new ArrayList<Integer>();
+        this.generateSeats();
     }
 
     public String getFlightNo(){
@@ -66,5 +77,22 @@ public class Flight {
         if(this.availableSeats() > 0 && this.availableWeight() >= passenger.getLuggageWeight()){
             this.passengers.add(passenger);
         }
+        passenger.assignFlight(this);
+        passenger.assignSeat(this.assignSeat());
+    }
+
+    public void generateSeats(){
+        for(int i = 1; i <= this.plane.getCapacity(); i++){
+            this.seats.add(i);
+        }
+        Collections.shuffle(this.seats);
+    }
+
+    public int countRemainingSeats(){
+        return this.seats.size();
+    }
+
+    public int assignSeat(){
+        return this.seats.remove(0);
     }
 }

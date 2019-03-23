@@ -93,4 +93,15 @@ public class TestFlight {
         assertEquals(129, flight1.availableSeats());
         assertEquals(3870, flight1.availableWeight());
     }
+
+    @Test
+    public void numberOfRemainingSeatsStartsAtFullCapacity(){
+        assertEquals(130, flight1.countRemainingSeats());
+    }
+
+    @Test
+    public void canAssignASeatToPassengerWhenBookedOnFlight(){
+        flight1.book(passenger1);
+        assertEquals(129, flight1.countRemainingSeats());
+    }
 }

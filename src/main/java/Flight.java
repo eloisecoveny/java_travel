@@ -53,6 +53,10 @@ public class Flight {
         return this.passengers.size();
     }
 
+    public ArrayList<Passenger> getPassengers(){
+        return this.passengers;
+    }
+
     public void setPlane(Plane plane){
         this.plane = plane;
     }
@@ -81,7 +85,7 @@ public class Flight {
         passenger.assignSeat(this.assignSeat());
     }
 
-    public void generateSeats(){
+    private void generateSeats(){
         for(int i = 1; i <= this.plane.getCapacity(); i++){
             this.seats.add(i);
         }
@@ -103,6 +107,21 @@ public class Flight {
 
         } catch (ParseException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void sortPassengers(){
+        // Bubble sort method
+        int n = this.passengers.size();
+        Passenger temp;
+        for(int i = 0; i < n; i++){
+            for(int j = 1; j < n; j++){
+                if(passengers.get(j-1).getSeat() > passengers.get(j).getSeat()){
+                    temp = passengers.get(j-1);
+                    passengers.set(j-1, passengers.get(j));
+                    passengers.set(j, temp);
+                }
+            }
         }
     }
 }

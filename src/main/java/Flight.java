@@ -61,6 +61,10 @@ public class Flight {
         this.plane = plane;
     }
 
+    public SimpleDateFormat getFormat(){
+        return this.format;
+    }
+
     public void setDepartureTime(String newTime){
         this.parseDate(newTime);
     }
@@ -114,7 +118,7 @@ public class Flight {
         // Bubble sort method
         int n = this.passengers.size();
         Passenger temp;
-        for(int i = 0; i < n; i++){
+        for(int i = 0; i < (n-1); i++){
             for(int j = 1; j < n; j++){
                 if(passengers.get(j-1).getSeat() > passengers.get(j).getSeat()){
                     temp = passengers.get(j-1);

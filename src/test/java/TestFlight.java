@@ -2,7 +2,11 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
 
@@ -55,10 +59,18 @@ public class TestFlight {
         assertEquals(AirportCode.AKL, flight1.getDestination());
     }
 
-//    @Ignore
-////    public void hasDepartureTime(){
-////        assertEquals(, flight1.getDepartureTime());
-////    }
+    @Test
+    public void hasDepartureTime(){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.UK);
+        Date departureTime = new Date();
+        try {
+            departureTime = format.parse("2019-04-01 08:00");
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assertEquals(departureTime, flight1.getDepartureTime());
+    }
 
     @Test
     public void hasFlightCapacity(){
@@ -81,11 +93,19 @@ public class TestFlight {
         assertEquals(plane2, flight1.getPlane());
     }
 
-//    @Ignore
-//    public void canChangeDepartureTime(){
-//        flight1.setDepartureTime("2019-04-01 08:30");
-//        assertEquals("08:30", flight1.getDepartureTime());
-//    }
+    @Test
+    public void canChangeDepartureTime(){
+        flight1.setDepartureTime("2019-04-01 08:30");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.UK);
+        Date newDate = new Date();
+        try {
+            newDate = format.parse("2019-04-01 08:30");
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assertEquals(newDate, flight1.getDepartureTime());
+    }
 
     @Test
     public void canCheckNumberOfAvailableSeats(){

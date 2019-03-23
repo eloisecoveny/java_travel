@@ -1,7 +1,9 @@
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Locale;
 
 public class Flight {
 
@@ -9,21 +11,19 @@ public class Flight {
     private Plane plane;
     private AirportCode departingFrom;
     private AirportCode destination;
-//    private Date date;
-//    private SimpleDateFormat time;
-    private String departureTime;
+    private Date departureTime;
+    private SimpleDateFormat format;
     private ArrayList<Passenger> passengers;
     private ArrayList<Integer> seats;
 
-    public Flight(String flightNo, Plane plane, AirportCode departingFrom, AirportCode destination, String departureTime){
+    public Flight(String flightNo, Plane plane, AirportCode departingFrom, AirportCode destination, String departure){
         this.flightNo = flightNo;
         this.plane = plane;
         this.departingFrom = departingFrom;
         this.destination = destination;
-        this.departureTime = departureTime;
-//        this.date = new Date(departureTime);
-//        this.time = new SimpleDateFormat("HH:mm");
-//        this.departureTime = this.time.format(this.date);
+        this.format = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.UK);
+        this.departureTime = new Date();
+        this.parseDate(departure);
         this.passengers = new ArrayList<Passenger>();
         this.seats = new ArrayList<Integer>();
         this.generateSeats();
@@ -45,7 +45,7 @@ public class Flight {
         return this.destination;
     }
 
-    public String getDepartureTime(){
+    public Date getDepartureTime(){
         return this.departureTime;
     }
 
@@ -58,7 +58,7 @@ public class Flight {
     }
 
     public void setDepartureTime(String newTime){
-        this.departureTime = newTime;
+        this.parseDate(newTime);
     }
 
     public int availableSeats(){
@@ -94,5 +94,15 @@ public class Flight {
 
     public int assignSeat(){
         return this.seats.remove(0);
+    }
+
+    public void parseDate(String newTime){
+        try {
+            this.departureTime = format.parse(newTime);
+//            System.out.println(departureTime);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -19,6 +19,8 @@ public class TestFlight {
     public Passenger passenger1;
     public Passenger passenger2;
     public Passenger passenger3;
+    public Passenger passenger4;
+    public Passenger passenger5;
 
     public Flight flight1;
     public Flight flight2;
@@ -31,8 +33,9 @@ public class TestFlight {
         plane3 = new Plane(PlaneType.FRIGATE_ECOJET);
 
         passenger1 = new Passenger("Eloise", 1);
-        passenger2 = new Passenger("Alice", 2);
-        passenger3 = new Passenger("Elijah", 1);
+        passenger2 = new Passenger("Alice", 1);
+        passenger3 = new Passenger("Elijah", 2);
+        passenger4 = new Passenger("Pernille", 1);
 
         flight1 = new Flight("ER184", plane1, AirportCode.GLA, AirportCode.AKL, "2019-04-01 08:00");
         flight2 = new Flight("AE230", plane2, AirportCode.GLA, AirportCode.BER, "2019-04-01 16:44");
@@ -141,9 +144,18 @@ public class TestFlight {
         flight3.book(passenger1);
         flight3.book(passenger2);
         flight3.book(passenger3);
-        flight3.sortPassengers();
         ArrayList<Passenger> sorted = flight3.getPassengers();
         assertEquals(3, flight3.countPassengers());
         assertEquals(1, sorted.get(0).getSeat());
+    }
+
+    @Test
+    public void canFindPassengerBySeat(){
+        flight3.book(passenger1);
+        flight3.book(passenger2);
+        flight3.book(passenger3);
+        flight3.book(passenger4);
+        Passenger passenger = flight3.findPassengerBySeat(2, flight3.getPassengers());
+        assertEquals(2, passenger.getSeat());
     }
 }

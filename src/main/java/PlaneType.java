@@ -16,7 +16,7 @@ public enum PlaneType {
     BOEING_777(60, 3600),
     COMAC_C919(300, 18000),
     CONCORDE(20, 1200),
-    FRIGATE_ECOJET(3, 300);
+    FRIGATE_ECOJET(4, 300);
 
     private final int capacity;
     private final int weight;

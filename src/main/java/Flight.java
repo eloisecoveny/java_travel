@@ -87,6 +87,7 @@ public class Flight {
         }
         passenger.assignFlight(this);
         passenger.assignSeat(this.assignSeat());
+        this.sortPassengers();
     }
 
     private void generateSeats(){
@@ -127,5 +128,27 @@ public class Flight {
                 }
             }
         }
+    }
+
+    public Passenger findPassengerBySeat(int search_seat, ArrayList<Passenger> search_area){
+        if(search_area.size() == 0){
+            return null;
+        }
+
+        int middle_index = 0;
+        if (search_area.size() >1) {
+            middle_index = (search_area.size() / 2);
+        }
+
+        Passenger midpoint = search_area.get(middle_index);
+
+        if (search_seat == midpoint.getSeat()){
+            return midpoint;
+        }
+
+        ArrayList<Passenger> new_search_area = search_seat < midpoint.getSeat() ?
+                new ArrayList<Passenger>(search_area.subList(0, middle_index)) :
+                new ArrayList<Passenger>(search_area.subList(middle_index+1, search_area.size()));
+        return findPassengerBySeat(search_seat, new_search_area);
     }
 }
